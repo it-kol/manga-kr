@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <link rel="icon" type="image/png" href="https://files.manuscdn.com/user_upload_by_module/session_file/310519663402005199/qOWZlzkGYKQJxogq.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Immersive Translate × 웹툰/만화 KOL · 협업 참고 자료</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #fff5f8;
+      --bg-panel: #fce7ef;
+      --bg-card: #ffffff;
+      --border: rgba(219,39,119,0.13);
+      --border-bright: rgba(219,39,119,0.28);
+      --text-primary: #1a0a12;
+      --text-secondary: #4a1a2a;
+      --text-muted: #9a6a7a;
+      --pink: #db2777;
+      --pink-light: #f9a8d4;
+      --pink-dark: #9d174d;
+      --purple: #7c3aed;
+      --indigo: #3730a3;
+      --teal: #0d9488;
+      --green: #166534;
+      --amber: #92400e;
+      --brand: #db2777;
+      --radius-sm: 10px;
+      --radius: 16px;
+      --radius-xl: 24px;
+      --transition: 0.2s ease;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text-primary); line-height: 1.6; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; }
+
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: rgba(219,39,119,0.2); border-radius: 3px; }
+
+    /* LAYOUT */
+    .inner { max-width: 960px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+    section { padding: 72px 0; }
+
+    /* NAV */
+    .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(255,245,248,0.92); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 56px; display: flex; align-items: center; }
+    .nav-inner { max-width: 960px; margin: 0 auto; padding: 0 24px; width: 100%; display: flex; align-items: center; gap: 24px; }
+    .nav-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 15px; color: var(--text-primary); }
+    .nav-logo img { width: 28px; height: 28px; border-radius: 7px; }
+    .nav-sep { font-size: 14px; color: var(--text-muted); margin: 0 2px; }
+    .nav-page-name { font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+    .nav-links { display: flex; gap: 20px; margin-left: auto; }
+    .nav-links a { font-size: 13px; color: var(--text-muted); transition: color var(--transition); }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-mobile-btn { display: none; margin-left: auto; background: none; border: none; color: var(--text-primary); font-size: 20px; cursor: pointer; }
+
+    /* MOBILE NAV */
+    .mobile-nav { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(255,245,248,0.97); backdrop-filter: blur(20px); flex-direction: column; align-items: center; justify-content: center; gap: 24px; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+    .mobile-nav-close { position: absolute; top: 20px; right: 24px; background: none; border: none; color: var(--text-muted); font-size: 28px; cursor: pointer; }
+    .mob-btns { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; justify-content: center; }
+    .mob-btn { padding: 12px 24px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; cursor: pointer; transition: all var(--transition); border: 1px solid transparent; }
+    .mob-btn-share { background: rgba(219,39,119,0.06); color: var(--text-primary); border-color: var(--border); }
+    .mob-btn-collab { background: rgba(219,39,119,0.1); color: var(--pink); border: 1px solid rgba(219,39,119,0.3) !important; }
+
+    /* BOTTOM BAR */
+    .bottom-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 90; background: rgba(255,245,248,0.96); backdrop-filter: blur(16px); border-top: 1px solid var(--border); padding: 10px 24px; display: flex; align-items: center; gap: 16px; }
+    .bottom-bar-icon { font-size: 18px; flex-shrink: 0; }
+    .bottom-bar-text { font-size: 13px; font-weight: 600; color: var(--text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .bottom-bar-url { font-size: 11px; color: var(--pink); font-family: 'Courier New', monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 320px; }
+    .bottom-bar-free { margin-left: auto; flex-shrink: 0; background: linear-gradient(135deg,#db2777,#9d174d); color: #fff; padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 800; white-space: nowrap; }
+
+    /* SIDE BTNS */
+    .side-btns { position: fixed; left: 16px; top: 50%; transform: translateY(-50%); z-index: 80; display: flex; flex-direction: column; gap: 10px; }
+    .side-btn { display: flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 12px; background: rgba(255,255,255,0.85); border: 1px solid var(--border); font-size: 15px; cursor: pointer; transition: all var(--transition); color: var(--text-secondary); white-space: nowrap; box-shadow: 0 2px 8px rgba(219,39,119,0.08); }
+    .side-btn:hover { background: #fff; border-color: var(--border-bright); color: var(--text-primary); }
+    .side-btn-label { font-size: 12px; font-weight: 600; }
+
+    /* MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; z-index: 300; background: rgba(30,5,15,0.45); backdrop-filter: blur(8px); align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal-box { background: #fff; border: 1px solid var(--border-bright); border-radius: var(--radius-xl); padding: 32px; max-width: 480px; width: 90%; position: relative; max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(30,5,15,0.15); }
+    .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--text-muted); font-size: 22px; cursor: pointer; }
+    .modal-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--text-primary); }
+    .modal-sub { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.7; }
+    .wx-card { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: var(--radius); background: var(--bg); border: 1px solid var(--border); margin-bottom: 0; }
+    .wx-platform { width: 36px; height: 36px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .wx-info { flex: 1; }
+    .wx-name { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    .wx-id { font-size: 12px; color: var(--pink); font-family: 'Courier New', monospace; margin-top: 2px; }
+    .wx-copy { padding: 5px 12px; border-radius: var(--radius-sm); background: transparent; border: 1px solid var(--border); font-size: 11px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all var(--transition); white-space: nowrap; flex-shrink: 0; }
+    .wx-copy:hover { border-color: var(--pink); color: var(--pink); }
+    .wx-copy.copied { border-color: var(--green); color: var(--green); }
+
+    /* SHARE MODAL */
+    .share-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
+    .share-item { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 8px; border-radius: var(--radius); background: var(--bg); border: 1px solid var(--border); cursor: pointer; transition: all var(--transition); }
+    .share-item:hover { border-color: var(--border-bright); background: var(--bg-panel); }
+    .share-plat-icon { font-size: 24px; }
+    .share-plat-label { font-size: 11px; color: var(--text-muted); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ANIMATIONS */
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    @keyframes gradShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+    @keyframes sliderHint { 0%,100% { transform: translateX(-50%) translateX(0); } 30% { transform: translateX(-50%) translateX(-30px); } 60% { transform: translateX(-50%) translateX(30px); } }
+
+    /* SECTION HEADER */
+    .sec-head { text-align: center; margin-bottom: 48px; }
+    .sec-label { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: var(--pink); margin-bottom: 12px; }
+    .sec-title { font-size: 34px; font-weight: 900; letter-spacing: -0.03em; line-height: 1.15; margin-bottom: 14px; color: var(--text-primary); }
+    .sec-desc { font-size: 15px; color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.8; }
+
+    /* ===== HERO ===== */
+    .hero-bg {
+      min-height: 100vh; display: flex; align-items: center;
+      padding-top: 56px;
+      background: radial-gradient(ellipse 80% 60% at 30% 50%, rgba(219,39,119,0.07) 0%, transparent 70%),
+                  radial-gradient(ellipse 60% 40% at 80% 80%, rgba(124,58,237,0.05) 0%, transparent 60%),
+                  var(--bg);
+    }
+    .hero-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; max-width: 960px; margin: 0 auto; padding: 40px 24px; }
+    .hero-left { }
+    .hero-logo-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .hero-logo-img { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; }
+    .hero-logo-x { font-size: 18px; color: var(--text-muted); }
+    .hero-logo-platform { display: flex; align-items: center; gap: 6px; background: rgba(219,39,119,0.08); border: 1px solid rgba(219,39,119,0.2); border-radius: 8px; padding: 4px 10px; }
+    .hero-logo-platform-icon { font-size: 16px; }
+    .hero-logo-platform-name { font-size: 13px; font-weight: 700; color: var(--pink); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 100px; background: rgba(219,39,119,0.07); border: 1px solid rgba(219,39,119,0.18); font-size: 12px; font-weight: 600; color: var(--pink); margin-bottom: 24px; animation: fadeInUp 0.6s ease both; }
+    .pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pink); animation: pulse 2s infinite; }
+    .hero-h1 { font-size: clamp(26px, 3.5vw, 46px); font-weight: 900; line-height: 1.12; letter-spacing: -0.04em; margin-bottom: 16px; animation: fadeInUp 0.6s ease 0.1s both; color: var(--text-primary); }
+    .grad-pink { background: linear-gradient(135deg, #db2777, #7c3aed, #db2777); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: gradShift 5s ease infinite; }
+    .hero-sub { font-size: 15px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 28px; animation: fadeInUp 0.6s ease 0.18s both; }
+    .hero-actions { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; animation: fadeInUp 0.6s ease 0.26s both; margin-bottom: 28px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; cursor: pointer; transition: all var(--transition); border: none; }
+    .btn-lg { padding: 12px 26px; font-size: 15px; }
+    .btn-primary { background: linear-gradient(135deg, #db2777, #9d174d); color: #fff; box-shadow: 0 4px 16px rgba(219,39,119,0.3); }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(219,39,119,0.4); }
+    .btn-outline { background: transparent; color: var(--pink); border: 1.5px solid rgba(219,39,119,0.4); }
+    .btn-outline:hover { background: rgba(219,39,119,0.06); border-color: var(--pink); }
+    .btn-landing { background: rgba(219,39,119,0.08); color: var(--pink); border: 1px solid rgba(219,39,119,0.2); }
+    .btn-landing:hover { background: rgba(219,39,119,0.14); }
+    .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; animation: fadeInUp 0.6s ease 0.34s both; }
+    .chip { display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; border-radius: 100px; background: rgba(219,39,119,0.06); border: 1px solid rgba(219,39,119,0.15); font-size: 12px; color: var(--text-secondary); font-weight: 500; }
+    .hero-divider { height: 1px; background: var(--border); margin: 28px 0; }
+    .hero-stats { display: flex; gap: 24px; flex-wrap: wrap; }
+    .stat { }
+    .stat-n { font-size: 22px; font-weight: 900; color: var(--text-primary); }
+    .stat-n em { color: var(--pink); font-style: normal; }
+    .stat-l { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+    /* HERO RIGHT - MANGA CARDS */
+    .hero-right { position: relative; display: flex; justify-content: center; align-items: center; min-height: 420px; }
+    .manga-card { position: absolute; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 48px rgba(0,0,0,0.18); border: 2px solid rgba(255,255,255,0.6); }
+    .manga-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .manga-card-badge { position: absolute; top: 12px; right: 12px; padding: 4px 10px; border-radius: 100px; font-size: 11px; font-weight: 800; }
+    .manga-card-label { position: absolute; bottom: 12px; left: 12px; right: 12px; padding: 6px 10px; border-radius: 8px; font-size: 10px; font-weight: 600; }
+    .manga-card-1 { width: 200px; height: 280px; left: 20px; top: 20px; animation: float 4s ease-in-out infinite; z-index: 2; }
+    .manga-card-1 .manga-card-badge { background: rgba(236,72,153,0.9); color: #fff; }
+    .manga-card-1 .manga-card-label { background: rgba(255,255,255,0.9); color: #1a0a12; }
+    .manga-card-2 { width: 190px; height: 265px; right: 10px; bottom: 20px; animation: float 4s ease-in-out 1.5s infinite; z-index: 1; }
+    .manga-card-2 .manga-card-badge { background: rgba(249,115,22,0.9); color: #fff; }
+    .manga-card-2 .manga-card-label { background: rgba(0,0,0,0.75); color: #fff; }
+    .ai-badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); z-index: 3; width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg,#db2777,#7c3aed); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; color: #fff; box-shadow: 0 4px 20px rgba(219,39,119,0.5); border: 3px solid #fff; }
+
+    /* ===== SECTION 2: KEY MESSAGES ===== */
+    .msg-bg { background: linear-gradient(135deg, #fdf2f8 0%, #fce7ef 100%); }
+    .msg-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .msg-card { background: #fff; border-radius: var(--radius); padding: 28px; border: 1px solid var(--border); box-shadow: 0 2px 12px rgba(219,39,119,0.06); }
+    .msg-card-num { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg,#db2777,#9d174d); color: #fff; font-size: 15px; font-weight: 900; margin-bottom: 14px; }
+    .msg-card-title { font-size: 15px; font-weight: 800; color: var(--text-primary); margin-bottom: 10px; line-height: 1.4; }
+    .msg-card-body { font-size: 13px; color: var(--text-secondary); line-height: 1.8; }
+    .msg-card-body strong { color: var(--pink); }
+    .msg-free-banner { margin-top: 20px; background: linear-gradient(135deg,rgba(219,39,119,0.08),rgba(124,58,237,0.08)); border: 1.5px solid rgba(219,39,119,0.2); border-radius: var(--radius); padding: 18px 24px; display: flex; align-items: center; gap: 16px; }
+    .msg-free-icon { font-size: 28px; flex-shrink: 0; }
+    .msg-free-text { font-size: 14px; color: var(--text-primary); line-height: 1.7; }
+    .msg-free-text strong { color: var(--pink); }
+
+    /* ===== SECTION 3: PRODUCT INFO ===== */
+    /* Feature points */
+    .feat-pts { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 48px; }
+    .feat-pt { background: #fff; border-radius: var(--radius); padding: 22px; border: 1px solid var(--border); display: flex; gap: 14px; align-items: flex-start; }
+    .feat-pt-icon { width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg,rgba(219,39,119,0.12),rgba(219,39,119,0.06)); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .feat-pt-title { font-size: 14px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .feat-pt-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+    .feat-pt-tag { display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 100px; font-size: 10px; font-weight: 700; background: rgba(219,39,119,0.08); color: var(--pink); border: 1px solid rgba(219,39,119,0.2); }
+
+    /* Slider */
+    .effect-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; margin-bottom: 48px; }
+    .slider-wrap { position: relative; border-radius: 18px; overflow: hidden; cursor: col-resize; user-select: none; box-shadow: 0 12px 40px rgba(0,0,0,0.15); aspect-ratio: 3/4; max-height: 440px; }
+    .slider-before, .slider-after { position: absolute; inset: 0; }
+    .slider-before img, .slider-after img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .slider-after { clip-path: inset(0 50% 0 0); }
+    .slider-line { position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: #ec4899; transform: translateX(-50%); pointer-events: none; }
+    .slider-handle { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 36px; height: 36px; border-radius: 50%; background: #ec4899; color: #fff; font-size: 11px; font-weight: 900; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(236,72,153,0.5); cursor: col-resize; border: 2px solid #fff; animation: sliderHint 3s ease-in-out 1s 1; }
+    .slider-hint { font-size: 11px; color: var(--text-muted); text-align: center; margin-top: 8px; }
+    .slider-label-before { position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.65); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; pointer-events: none; }
+    .slider-label-after { position: absolute; bottom: 12px; right: 12px; background: rgba(236,72,153,0.85); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 6px; pointer-events: none; }
+    .effect-right { display: flex; flex-direction: column; gap: 14px; }
+    .effect-feat { background: #fff; border-radius: var(--radius-sm); padding: 16px; border: 1px solid var(--border); display: flex; gap: 12px; align-items: flex-start; }
+    .effect-feat-icon { font-size: 20px; flex-shrink: 0; width: 32px; text-align: center; }
+    .effect-feat-title { font-size: 13px; font-weight: 800; color: var(--text-primary); margin-bottom: 3px; }
+    .effect-feat-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
+    .onomatopoeia-card { background: linear-gradient(135deg,rgba(219,39,119,0.06),rgba(124,58,237,0.06)); border: 1.5px solid rgba(219,39,119,0.18); border-radius: var(--radius-sm); padding: 16px; }
+    .onomatopoeia-title { font-size: 12px; font-weight: 800; color: var(--pink); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .ono-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+    .ono-item { background: rgba(255,255,255,0.7); border-radius: 8px; padding: 6px 10px; font-size: 11px; display: flex; align-items: center; gap: 4px; }
+    .ono-from { color: var(--text-secondary); font-weight: 600; }
+    .ono-arrow { color: var(--text-muted); }
+    .ono-to { color: var(--pink); font-weight: 800; }
+    .member-note { margin-top: 12px; padding: 10px 14px; background: rgba(219,39,119,0.06); border-radius: 8px; font-size: 11px; color: var(--pink-dark); font-weight: 600; text-align: center; border: 1px solid rgba(219,39,119,0.15); }
+
+    /* Why official */
+    .why-official { background: linear-gradient(135deg,#fdf2f8,#f3e8ff); border-radius: var(--radius-xl); padding: 32px; border: 1px solid rgba(219,39,119,0.15); margin-bottom: 48px; }
+    .why-official-title { font-size: 18px; font-weight: 900; color: var(--text-primary); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
+    .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .why-item { background: rgba(255,255,255,0.7); border-radius: var(--radius-sm); padding: 16px; text-align: center; }
+    .why-item-icon { font-size: 24px; margin-bottom: 8px; }
+    .why-item-title { font-size: 13px; font-weight: 800; color: var(--text-primary); margin-bottom: 4px; }
+    .why-item-desc { font-size: 11px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Platform scroll */
+    .platform-scroll-wrap { overflow: hidden; margin: 0 -24px; padding: 0 0 8px; }
+    .platform-track { display: flex; gap: 0; width: max-content; animation: marquee 28s linear infinite; }
+    .platform-track:hover { animation-play-state: paused; }
+    .platform-item { display: flex; align-items: center; gap: 8px; padding: 10px 20px; white-space: nowrap; font-size: 13px; font-weight: 600; color: var(--text-secondary); border-right: 1px solid var(--border); }
+    .platform-item-icon { font-size: 16px; }
+    .platform-expand { text-align: center; margin-top: 16px; }
+    .platform-expand-btn { background: rgba(219,39,119,0.08); border: 1.5px solid rgba(219,39,119,0.2); border-radius: 100px; padding: 10px 24px; font-size: 13px; font-weight: 700; color: var(--pink); cursor: pointer; transition: all var(--transition); }
+    .platform-expand-btn:hover { background: rgba(219,39,119,0.14); }
+    .platform-all { display: none; margin-top: 20px; }
+    .platform-all.open { display: block; }
+    .platform-all-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .platform-tag { padding: 5px 12px; border-radius: 100px; background: #fff; border: 1px solid var(--border); font-size: 12px; color: var(--text-secondary); }
+
+    /* Language banner */
+    .lang-banner { background: linear-gradient(135deg,rgba(219,39,119,0.08),rgba(124,58,237,0.08)); border: 1.5px solid rgba(219,39,119,0.18); border-radius: var(--radius); padding: 20px 28px; display: flex; align-items: center; gap: 20px; margin-top: 24px; }
+    .lang-banner-icon { font-size: 32px; flex-shrink: 0; }
+    .lang-banner-title { font-size: 18px; font-weight: 900; color: var(--text-primary); margin-bottom: 4px; }
+    .lang-banner-desc { font-size: 13px; color: var(--text-secondary); }
+
+    /* ===== SECTION 4: CREATION GUIDE ===== */
+    .guide-bg { background: linear-gradient(135deg,#fdf2f8 0%,#f3e8ff 100%); }
+    .guide-tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 32px; }
+    .guide-tab { padding: 8px 18px; border-radius: 100px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all var(--transition); background: rgba(255,255,255,0.7); border: 1.5px solid var(--border); color: var(--text-muted); }
+    .guide-tab.active { background: linear-gradient(135deg,#db2777,#9d174d); color: #fff; border-color: transparent; box-shadow: 0 4px 12px rgba(219,39,119,0.3); }
+    .guide-panel { display: none; }
+    .guide-panel.active { display: block; }
+    .guide-card { background: #fff; border-radius: var(--radius-xl); padding: 32px; border: 1px solid var(--border); box-shadow: 0 4px 20px rgba(219,39,119,0.06); }
+    .guide-card-head { margin-bottom: 24px; }
+    .guide-type-badge { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 100px; font-size: 11px; font-weight: 800; letter-spacing: 0.04em; margin-bottom: 10px; }
+    .guide-title { font-size: 20px; font-weight: 900; color: var(--text-primary); margin-bottom: 6px; line-height: 1.3; }
+    .guide-subtitle { font-size: 13px; color: var(--text-muted); }
+    .guide-body { }
+    .guide-section { margin-bottom: 20px; }
+    .guide-section-label { font-size: 11px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pink); margin-bottom: 10px; }
+    .guide-tips { display: flex; flex-direction: column; gap: 8px; }
+    .guide-tip { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .guide-tip-icon { width: 22px; height: 22px; border-radius: 50%; background: rgba(219,39,119,0.1); color: var(--pink); font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+    .guide-quote { background: linear-gradient(135deg,rgba(219,39,119,0.05),rgba(124,58,237,0.05)); border-left: 3px solid var(--pink); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; padding: 14px 18px; font-size: 13px; color: var(--text-secondary); line-height: 1.8; font-style: italic; }
+    .guide-content { font-size: 13px; color: var(--text-secondary); line-height: 1.9; }
+    .notice-box { display: flex; gap: 10px; align-items: flex-start; background: rgba(219,39,119,0.05); border: 1px solid rgba(219,39,119,0.15); border-radius: var(--radius-sm); padding: 14px 16px; font-size: 12px; color: var(--text-secondary); line-height: 1.7; margin-top: 16px; }
+
+    /* Quality criteria */
+    .quality-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .quality-item { background: #fff; border-radius: var(--radius); padding: 20px; border: 1px solid var(--border); }
+    .quality-num { font-size: 28px; font-weight: 900; color: rgba(219,39,119,0.15); margin-bottom: 8px; }
+    .quality-title { font-size: 14px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .quality-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* Must / Free */
+    .must-free-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .must-card { background: #fff; border-radius: var(--radius); padding: 24px; border: 1px solid var(--border); }
+    .must-card-title { font-size: 15px; font-weight: 900; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .must-card-title.must { color: var(--pink); }
+    .must-card-title.free { color: var(--purple); }
+    .must-list { display: flex; flex-direction: column; gap: 10px; }
+    .must-item { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--text-secondary); line-height: 1.7; }
+    .must-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pink); flex-shrink: 0; margin-top: 7px; }
+    .free-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--purple); flex-shrink: 0; margin-top: 7px; }
+
+    /* ===== COLLAB FLOW ===== */
+    .collab-bg { background: linear-gradient(135deg,#fdf2f8 0%,#fff5f8 100%); }
+    .flow-steps { display: flex; flex-direction: column; gap: 0; }
+    .flow-step { display: flex; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--border); }
+    .flow-step:last-child { border-bottom: none; }
+    .flow-step-left { display: flex; flex-direction: column; align-items: center; gap: 0; flex-shrink: 0; }
+    .flow-step-num { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg,#db2777,#9d174d); color: #fff; font-size: 14px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .flow-step-line { flex: 1; width: 2px; background: var(--border); margin: 6px 0; min-height: 20px; }
+    .flow-step-right { flex: 1; padding-top: 6px; }
+    .flow-step-tag { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+    .fst-1 { background: rgba(219,39,119,0.08); color: var(--pink); border: 1px solid rgba(219,39,119,0.2); }
+    .fst-2 { background: rgba(124,58,237,0.08); color: var(--purple); border: 1px solid rgba(124,58,237,0.2); }
+    .fst-3 { background: rgba(13,148,136,0.08); color: var(--teal); border: 1px solid rgba(13,148,136,0.2); }
+    .fst-4 { background: rgba(22,101,52,0.08); color: var(--green); border: 1px solid rgba(22,101,52,0.2); }
+    .flow-step-title { font-size: 16px; font-weight: 800; color: var(--text-primary); margin-bottom: 6px; }
+    .flow-step-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 12px; }
+    .flow-step-items { display: flex; flex-wrap: wrap; gap: 8px; }
+    .flow-item { display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 100px; background: rgba(219,39,119,0.05); border: 1px solid rgba(219,39,119,0.15); font-size: 11px; color: var(--text-secondary); font-weight: 600; }
+    .benefit-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 12px 0; }
+    .benefit-card { border-radius: var(--radius-sm); padding: 16px; }
+    .benefit-card-pink { background: rgba(219,39,119,0.05); border: 1px solid rgba(219,39,119,0.15); }
+    .benefit-card-purple { background: rgba(124,58,237,0.05); border: 1px solid rgba(124,58,237,0.15); }
+
+    /* ===== CONTACT ===== */
+    .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; max-width: 800px; margin: 0 auto; }
+    @media(max-width:640px){ .contact-grid { grid-template-columns: 1fr; } }
+
+    /* ===== FOOTER ===== */
+    footer { background: var(--bg-panel); border-top: 1px solid var(--border); padding: 32px 0; text-align: center; }
+    .footer-desc { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    /* ===== LIGHTBOX ===== */
+    #lightbox-overlay { display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.88); align-items:center; justify-content:center; }
+    #lightbox-overlay.open { display:flex; }
+    #lightbox-img { max-width:90vw; max-height:88vh; border-radius:12px; object-fit:contain; box-shadow:0 8px 40px rgba(0,0,0,0.5); }
+    .lb-close { position:fixed; top:16px; right:20px; color:#fff; font-size:32px; cursor:pointer; z-index:1001; line-height:1; }
+    .lb-prev, .lb-next { position:fixed; top:50%; transform:translateY(-50%); color:#fff; font-size:36px; cursor:pointer; z-index:1001; padding:8px; background:rgba(255,255,255,0.1); border-radius:50%; line-height:1; }
+    .lb-prev { left:16px; }
+    .lb-next { right:16px; }
+    #lb-counter { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); color:rgba(255,255,255,0.7); font-size:13px; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero-layout { grid-template-columns: 1fr; gap: 32px; }
+      .hero-right { min-height: 280px; }
+      .manga-card-1 { width: 140px; height: 196px; left: 10px; top: 10px; }
+      .manga-card-2 { width: 130px; height: 182px; right: 10px; bottom: 10px; }
+      .msg-grid { grid-template-columns: 1fr; }
+      .feat-pts { grid-template-columns: 1fr; }
+      .effect-layout { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .quality-grid { grid-template-columns: 1fr; }
+      .must-free-grid { grid-template-columns: 1fr; }
+      .benefit-cards { grid-template-columns: 1fr; }
+      .side-btns { display: none; }
+      .nav-links { display: none; }
+      .nav-mobile-btn { display: block; }
+      .sec-title { font-size: 26px; }
+      .bottom-bar-url { display: none; }
+    }
+    @media (max-width: 480px) {
+      .why-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663402005199/AdlZOKmKnlgVUZuk.jpg" alt="Immersive Translate" />
+      Immersive Translate
+    </div>
+    <span class="nav-sep">×</span>
+    <span class="nav-page-name">웹툰/만화 KOL 협업 자료</span>
+    <div class="nav-links">
+      <a href="#messages">핵심 포인트 2가지</a>
+      <a href="#product">제품 정보</a>
+      <a href="#guide">제작 가이드</a>
+      <a href="#collab">협업 프로세스</a>
+      <a href="#contact">문의하기</a>
+    </div>
+    <button class="nav-mobile-btn" onclick="document.getElementById('mobileNav').classList.add('open')">☰</button>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav" id="mobileNav">
+  <button class="mobile-nav-close" onclick="document.getElementById('mobileNav').classList.remove('open')">×</button>
+  <a href="#messages" onclick="document.getElementById('mobileNav').classList.remove('open')">핵심 포인트 2가지</a>
+  <a href="#product" onclick="document.getElementById('mobileNav').classList.remove('open')">제품 정보</a>
+  <a href="#guide" onclick="document.getElementById('mobileNav').classList.remove('open')">제작 가이드</a>
+  <a href="#collab" onclick="document.getElementById('mobileNav').classList.remove('open')">협업 프로세스</a>
+  <a href="#contact" onclick="document.getElementById('mobileNav').classList.remove('open')">문의하기</a>
+  <div class="mob-btns">
+    <button class="mob-btn mob-btn-share" onclick="document.getElementById('mobileNav').classList.remove('open');openModal('shareModal')">📤 친구에게 공유하기</button>
+    <button class="mob-btn mob-btn-collab" onclick="document.getElementById('mobileNav').classList.remove('open');openModal('collabModal')">🤝 협업 문의</button>
+  </div>
+</div>
+
+<!-- SIDE BTNS -->
+<div class="side-btns">
+  <button class="side-btn" onclick="openModal('shareModal')">📤 <span class="side-btn-label">공유</span></button>
+  <button class="side-btn" onclick="openModal('collabModal')">🤝 <span class="side-btn-label">협업 문의</span></button>
+</div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <span class="bottom-bar-icon">🎁</span>
+  <div>
+    <div class="bottom-bar-text">무료 버전 매월 100장 만화 페이지 제공 · 가볍게 만화 보기에 충분합니다</div>
+    <div class="bottom-bar-url">immersivetranslate.com/ko/</div>
+  </div>
+  <div class="bottom-bar-free">무료시작하다</div>
+</div>
+
+<!-- ===== SECTION 1: HERO ===== -->
+<section class="hero-bg" id="hero">
+  <div class="hero-layout">
+    <div class="hero-left">
+      <div class="hero-logo-row">
+        <img class="hero-logo-img" src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663402005199/AdlZOKmKnlgVUZuk.jpg" alt="Immersive Translate" />
+        <span class="hero-logo-x">×</span>
+        <div class="hero-logo-platform">
+          <span class="hero-logo-platform-icon">📚</span>
+          <span class="hero-logo-platform-name">웹툰/만화 KOL</span>
+        </div>
+      </div>
+      <div class="hero-badge">
+        <div class="pulse-dot"></div>
+        웹툰 / 일본 만화 / 한국 만화 / 원서 읽기 · 크리에이터 협업 참고 자료
+      </div>
+      <h1 class="hero-h1">
+        팔로워들이<br>
+        <span class="grad-pink">외국어를 몰라도 원서를 읽을 수 있게</span>
+      </h1>
+      <p class="hero-sub">
+        번역본이 늦게 올라오나요? 공식 한국어판이 없나요? Immersive Translate를 사용하면 공식 만화 사이트에서 원서를 직접 볼 수 있습니다. AI 번역이 말풍선 위에 겹쳐지고, 의성어까지 번역되며, 일본 만화와 한국 웹툰 모두 지원합니다. 무료 사용자도 매월 100장의 만화 페이지 번역을 제공받아 가볍게 연재작을 챙겨보기에 충분합니다.
+      </p>
+      <div class="hero-actions">
+        <a href="#messages" class="btn btn-primary btn-lg">협업 자료 보기</a>
+        <a href="#guide" class="btn btn-outline btn-lg">제작 방향 확인</a>
+        <a href="https://immersivetranslate.com/ko/" target="_blank" class="btn btn-landing btn-lg">🌐 공식 홈페이지 ↗</a>
+      </div>
+      <div class="hero-chips">
+        <span class="chip">📖 만화 번역 (Pro 전용)</span>
+        <span class="chip">🆓 매월 100장 무료</span>
+        <span class="chip">🌐 80+ 플랫폼 지원</span>
+        <span class="chip">🔤 의성어 정밀 번역</span>
+        <span class="chip">📱 App 내장 브라우저</span>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stats">
+        <div class="stat"><div class="stat-n"><em>2000</em>만+</div><div class="stat-l">글로벌 사용자</div></div>
+        <div class="stat"><div class="stat-n"><em>80</em>+</div><div class="stat-l">지원 만화 플랫폼</div></div>
+        <div class="stat"><div class="stat-n"><em>100</em>+</div><div class="stat-l">지원 언어</div></div>
+        <div class="stat"><div class="stat-n">4.9★</div><div class="stat-l">사용자 평점</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <!-- 순정 만화 컷 -->
+      <div class="manga-card manga-card-1">
+        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663402005199/FlOatOScebIIguaD.jpg" alt="순정 만화 - Cardcaptor Sakura" />
+        <div class="manga-card-badge">🌸 순정 만화</div>
+        <div class="manga-card-label">🇪🇸 ES &nbsp;AI✓&nbsp; ¡Nunca me rendiré!</div>
+      </div>
+      <!-- 소년 만화 컷 -->
+      <div class="manga-card manga-card-2">
+        <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663402005199/uWHuuNUAcSacNhpi.jpg" alt="한국 웹툰 - Solo Leveling" />
+        <div class="manga-card-badge" style="background:rgba(249,115,22,0.9)">🇰🇷 한국 웹툰</div>
+        <div class="manga-card-label">🇰🇷 한국어 → 한국어 AI✓</div>
+      </div>
+      <!-- AI badge -->
+      <div class="ai-badge">✦A</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 2: KEY MESSAGES ===== -->
+<section class="msg-bg" id="messages">
+  <div class="inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">Key Messages</div>
+      <h2 class="sec-title">이번 협업에서 팔로워가 기억해야 할 2가지</h2>
+      <p class="sec-desc">모든 기능을 설명할 필요는 없습니다. 팔로워가 영상을 보고 '외국어를 몰라도 원서 만화를 볼 수 있구나'라는 직관적인 느낌만 받으면 충분합니다.</p>
+    </div>
+    <div class="msg-grid reveal">
+      <div class="msg-card">
+        <div class="msg-card-num">1</div>
+        <div class="msg-card-title">「Immersive Translate」라는 도구가 있습니다</div>
+        <div class="msg-card-body">이름을 명확하게 언급해주세요. 팔로워가 나중에 검색하고 다운로드할 수 있는 유일한 단서입니다.</div>
+      </div>
+      <div class="msg-card">
+        <div class="msg-card-num">2</div>
+        <div class="msg-card-title">브라우저나 App에서 만화 사이트를 열 때, 클릭 한 번으로 원서를 한국어로 번역</div>
+        <div class="msg-card-body">번역문이 <strong>만화 위에 직접 겹쳐져</strong> 원본 그림을 해치지 않고 그림과 번역을 동시에 볼 수 있습니다. <strong>무료 사용자도 매월 100장의 만화 페이지를 번역할 수 있어</strong> 가볍게 연재작을 보기에 충분합니다.</div>
+      </div>
+    </div>
+    <div class="msg-free-banner reveal">
+      <div class="msg-free-icon">🎁</div>
+      <div class="msg-free-text">
+        <strong>가격에 대해서는 한 문장이면 충분합니다:</strong><br>
+        「만화 번역 기능은 무료 버전에서도 매월 100장의 페이지를 제공하여 가볍게 연재작을 보기에 충분합니다. 매일 원서를 대량으로 보는 헤비 유저라면 Pro 버전을 고려하는 것이 더 합리적입니다.」
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 3: PRODUCT INFO ===== -->
+<section id="product">
+  <div class="inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">Product Info</div>
+      <h2 class="sec-title">제품 한 줄 소개 & 만화 기능 핵심 정보</h2>
+      <p class="sec-desc">크리에이터를 위한 참고 정보입니다. 녹화 전 3분만 투자하여 읽어보세요. 영상에서 모두 말할 필요는 없으며, 알고만 계시면 됩니다.</p>
+    </div>
+
+    <!-- 제품 한 줄 소개 -->
+    <div class="msg-card reveal" style="margin-bottom:32px">
+      <div class="msg-card-title" style="font-size:16px">💡 제품 한 줄 포지셔닝</div>
+      <div class="msg-card-body" style="font-size:14px">
+        Immersive Translate는 원래 웹페이지 / PDF / 동영상 자막 이중 언어 번역 플러그인이었으나, 이제 만화 번역 기능이 업그레이드되었습니다: 많은 만화 사이트에서 <strong>클릭 한 번으로 만화 칸 안의 글씨를 인식하고 AI로 번역하여 원본 이미지 위에 직접 겹쳐 보여줍니다</strong>. 원서를 마치 "반공식 한국어판"처럼 볼 수 있습니다.
+      </div>
+    </div>
+
+    <!-- 팔로워에게 가장 유용한 2가지 기능 -->
+    <div class="sec-head" style="text-align:left;margin-bottom:20px">
+      <div class="sec-label">Top 2 Features</div>
+      <h3 style="font-size:22px;font-weight:900;color:var(--text-primary)">팔로워에게 가장 유용한 2가지 만화 기능</h3>
+    </div>
+    <div class="feat-pts reveal">
+      <div class="feat-pt">
+        <div class="feat-pt-icon">⚡</div>
+        <div>
+          <div class="feat-pt-title">클릭 한 번으로 원서 번역: 주요 만화 사이트에서 직접 사용, 캡처해서 번역기를 돌릴 필요 없음</div>
+          <div class="feat-pt-desc">지원되는 사이트에서는 "만화 번역" 버튼이 나타나며, 클릭 한 번으로 전체 화/장을 번역할 수 있습니다. PC 브라우저 확장 프로그램과 Immersive Translate App 내장 브라우저 모두 지원합니다.</div>
+          <span class="feat-pt-tag">🆓 무료 버전 매월 100장 제공</span>
+        </div>
+      </div>
+      <div class="feat-pt">
+        <div class="feat-pt-icon">🖼️</div>
+        <div>
+          <div class="feat-pt-title">번역문이 만화 칸 안에 직접 겹쳐져 원본 이미지를 해치지 않음</div>
+          <div class="feat-pt-desc">말풍선 / 텍스트 영역을 자동 인식하여 번역문을 원문 위치에 최대한 맞춰 붙여넣습니다. 원본 그림과 구도는 그대로 유지되며 번역문만 한 겹 추가되어, 기계 번역 캡처본을 보는 것보다 훨씬 편안한 독서 경험을 제공합니다.</div>
+          <span class="feat-pt-tag">레이아웃 완벽 유지</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 번역 효과 비교 슬라이더 -->
+    <div class="sec-head" style="text-align:left;margin-bottom:20px">
+      <div class="sec-label">Translation Effect</div>
+      <h3 style="font-size:22px;font-weight:900;color:var(--text-primary)">번역 효과, 한눈에 확인하세요</h3>
+    </div>
+    <div class="effect-layout reveal">
+      <div>
+        <div class="slider-wrap" id="slider-wrap">
+          <div class="slider-before">
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663405735798/KWpnhPrAm8n63ZeVuzbfoU/zh-before-aligned_606a7400.webp" alt="원문 (일본어)" />
+          </div>
+          <div class="slider-after" id="slider-after">
+            <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663405735798/KWpnhPrAm8n63ZeVuzbfoU/zh-after-aligned_8a15bb1f.webp" alt="번역문 (한국어)" />
+          </div>
+          <div class="slider-line" id="slider-line"></div>
+          <div class="slider-handle" id="slider-handle">M</div>
+          <div class="slider-label-before">원문 (일본어)</div>
+          <div class="slider-label-after">번역문 (한국어)</div>
+        </div>
+        <div class="slider-hint">← 슬라이더를 드래그하여 번역 전후 효과 비교 →</div>
+      </div>
+      <div class="effect-right">
+        <div class="effect-feat">
+          <div class="effect-feat-icon">📐</div>
+          <div>
+            <div class="effect-feat-title">레이아웃 완벽 유지</div>
+            <div class="effect-feat-desc">만화 칸, 말풍선 모양, 페이지 구성이 완벽하게 유지됩니다.</div>
+          </div>
+        </div>
+        <div class="effect-feat">
+          <div class="effect-feat-icon">✏️</div>
+          <div>
+            <div class="effect-feat-title">폰트 스타일 재현</div>
+            <div class="effect-feat-desc">손글씨풍, 명조체, 고딕체 등 번역 텍스트가 원문 스타일에 맞춰집니다.</div>
+          </div>
+        </div>
+        <div class="effect-feat">
+          <div class="effect-feat-icon">🤖</div>
+          <div>
+            <div class="effect-feat-title">고성능 AI 번역</div>
+            <div class="effect-feat-desc">문맥을 이해하는 자연스러운 번역, Pro 전용 고정밀 모델.</div>
+          </div>
+        </div>
+        <div class="effect-feat">
+          <div class="effect-feat-icon">⚡</div>
+          <div>
+            <div class="effect-feat-title">클릭 한 번으로 시작</div>
+            <div class="effect-feat-desc">브라우저 확장 프로그램을 클릭하기만 하면 사용 가능하며, 복잡한 설정이 필요 없습니다.</div>
+          </div>
+        </div>
+        <div class="onomatopoeia-card">
+          <div class="onomatopoeia-title">🎵 의성어 · 문화적 맥락 정밀 변환</div>
+          <div class="ono-grid">
+            <div class="ono-item"><span class="ono-from">ドカン！</span><span class="ono-arrow">→</span><span class="ono-to">쾅!</span></div>
+            <div class="ono-item"><span class="ono-from">ズキュン！</span><span class="ono-arrow">→</span><span class="ono-to">두근!</span></div>
+            <div class="ono-item"><span class="ono-from">シーン…</span><span class="ono-arrow">→</span><span class="ono-to">조용...</span></div>
+            <div class="ono-item"><span class="ono-from">ガーン！</span><span class="ono-arrow">→</span><span class="ono-to">헉!</span></div>
+            <div class="ono-item"><span class="ono-from">ドキドキ</span><span class="ono-arrow">→</span><span class="ono-to">두근두근</span></div>
+            <div class="ono-item"><span class="ono-from">ニヤリ</span><span class="ono-arrow">→</span><span class="ono-to">씨익</span></div>
+          </div>
+          <div class="member-note">★ 만화 번역은 Pro 전용 기능입니다 · Manga Translation is a Premium Feature</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 왜 정식 사이트를 이용해야 할까요 -->
+    <div class="why-official reveal">
+      <div class="why-official-title">🛡️ 왜 정식 사이트를 이용해야 할까요?</div>
+      <div class="why-grid">
+        <div class="why-item">
+          <div class="why-item-icon">⚖️</div>
+          <div class="why-item-title">법적 안전성</div>
+          <div class="why-item-desc">공식 플랫폼에서 읽으면 저작권 위험이 없으며, 원작자의 수익 창출을 직접적으로 지원할 수 있습니다.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-item-icon">🔒</div>
+          <div class="why-item-title">개인정보 보호</div>
+          <div class="why-item-desc">만화 내용을 읽거나 저장하지 않으며, 번역 요청은 암호화되어 전송되고 데이터가 남지 않습니다.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-item-icon">🌐</div>
+          <div class="why-item-title">80+ 플랫폼 지원</div>
+          <div class="why-item-desc">Pixiv, WEBTOON, 소년 Jump+, MangaDex 등 주요 플랫폼 지원, 지속 추가 중.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 지원플랫폼 -->
+    <div class="sec-head" style="text-align:left;margin-bottom:20px">
+      <div class="sec-label">Supported Platforms</div>
+      <h3 style="font-size:22px;font-weight:900;color:var(--text-primary)">다음의 모든 온라인 만화 사이트를 지원합니다</h3>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:6px">글로벌 주요 만화 플랫폼을 커버하여, 당신이 즐겨 찾는 사이트에서 모두 사용할 수 있습니다</p>
+    </div>
+    <div class="platform-scroll-wrap reveal">
+      <div class="platform-track" id="platform-track">
+        <div class="platform-item"><span class="platform-item-icon">📺</span>Bilibili 만화</div>
+        <div class="platform-item"><span class="platform-item-icon">🎮</span>DLsite</div>
+        <div class="platform-item"><span class="platform-item-icon">⚡</span>소년 Jump+</div>
+        <div class="platform-item"><span class="platform-item-icon">🎭</span>Comic Walker</div>
+        <div class="platform-item"><span class="platform-item-icon">🦓</span>Zebrack</div>
+        <div class="platform-item"><span class="platform-item-icon">🎨</span>Pixiv</div>
+        <div class="platform-item"><span class="platform-item-icon">📚</span>MANGA Plus</div>
+        <div class="platform-item"><span class="platform-item-icon">🌐</span>MangaDex</div>
+        <div class="platform-item"><span class="platform-item-icon">📱</span>WEBTOON</div>
+        <div class="platform-item"><span class="platform-item-icon">🎌</span>Piccoma</div>
+        <div class="platform-item"><span class="platform-item-icon">💎</span>Lezhin Comics</div>
+        <div class="platform-item"><span class="platform-item-icon">🔷</span>Azuki</div>
+        <div class="platform-item"><span class="platform-item-icon">📖</span>Tapas</div>
+        <div class="platform-item"><span class="platform-item-icon">📅</span>Comic Days</div>
+        <div class="platform-item"><span class="platform-item-icon">🎬</span>niconico Seiga</div>
+        <div class="platform-item"><span class="platform-item-icon">🇰🇷</span>Kakao Webtoon</div>
+        <div class="platform-item"><span class="platform-item-icon">🟢</span>Naver Webtoon</div>
+        <div class="platform-item"><span class="platform-item-icon">💬</span>LINE Manga</div>
+        <div class="platform-item"><span class="platform-item-icon">✨</span>Ganma!</div>
+        <div class="platform-item"><span class="platform-item-icon">📗</span>BOOK☆WALKER</div>
+        <!-- duplicate for seamless loop -->
+        <div class="platform-item"><span class="platform-item-icon">📺</span>Bilibili 만화</div>
+        <div class="platform-item"><span class="platform-item-icon">🎮</span>DLsite</div>
+        <div class="platform-item"><span class="platform-item-icon">⚡</span>소년 Jump+</div>
+        <div class="platform-item"><span class="platform-item-icon">🎭</span>Comic Walker</div>
+        <div class="platform-item"><span class="platform-item-icon">🦓</span>Zebrack</div>
+        <div class="platform-item"><span class="platform-item-icon">🎨</span>Pixiv</div>
+        <div class="platform-item"><span class="platform-item-icon">📚</span>MANGA Plus</div>
+        <div class="platform-item"><span class="platform-item-icon">🌐</span>MangaDex</div>
+        <div class="platform-item"><span class="platform-item-icon">📱</span>WEBTOON</div>
+        <div class="platform-item"><span class="platform-item-icon">🎌</span>Piccoma</div>
+        <div class="platform-item"><span class="platform-item-icon">💎</span>Lezhin Comics</div>
+        <div class="platform-item"><span class="platform-item-icon">🔷</span>Azuki</div>
+        <div class="platform-item"><span class="platform-item-icon">📖</span>Tapas</div>
+        <div class="platform-item"><span class="platform-item-icon">📅</span>Comic Days</div>
+        <div class="platform-item"><span class="platform-item-icon">🎬</span>niconico Seiga</div>
+        <div class="platform-item"><span class="platform-item-icon">🇰🇷</span>Kakao Webtoon</div>
+        <div class="platform-item"><span class="platform-item-icon">🟢</span>Naver Webtoon</div>
+        <div class="platform-item"><span class="platform-item-icon">💬</span>LINE Manga</div>
+        <div class="platform-item"><span class="platform-item-icon">✨</span>Ganma!</div>
+        <div class="platform-item"><span class="platform-item-icon">📗</span>BOOK☆WALKER</div>
+      </div>
+    </div>
+    <div class="platform-expand">
+      <button class="platform-expand-btn" onclick="togglePlatformAll(this)">80+ 개에라인만화사이트，지속 추가 중 · 지원 플랫폼 전체 보기 ↓</button>
+      <div class="platform-all" id="platform-all">
+        <div class="platform-all-grid">
+          <span class="platform-tag">Bilibili 만화</span><span class="platform-tag">DLsite</span><span class="platform-tag">소년 Jump+</span><span class="platform-tag">Comic Walker</span><span class="platform-tag">Zebrack</span><span class="platform-tag">Pixiv</span><span class="platform-tag">MANGA Plus</span><span class="platform-tag">MangaDex</span><span class="platform-tag">WEBTOON</span><span class="platform-tag">Piccoma</span><span class="platform-tag">Lezhin Comics</span><span class="platform-tag">Azuki</span><span class="platform-tag">Tapas</span><span class="platform-tag">Comic Days</span><span class="platform-tag">niconico Seiga</span><span class="platform-tag">Kakao Webtoon</span><span class="platform-tag">Naver Webtoon</span><span class="platform-tag">LINE Manga</span><span class="platform-tag">Ganma!</span><span class="platform-tag">BOOK☆WALKER</span><span class="platform-tag">ComicFesta</span><span class="platform-tag">Cmoa</span><span class="platform-tag">Manga ONE</span><span class="platform-tag">Sunday Webry</span><span class="platform-tag">Ura Sunday</span><span class="platform-tag">Comico</span><span class="platform-tag">pixivコミック</span><span class="platform-tag">COMIC OGYAAA!!</span><span class="platform-tag">マガポケ</span><span class="platform-tag">ヤンジャン!</span><span class="platform-tag">더많다지속 추가 중…</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 100+ 언어 -->
+    <div class="lang-banner reveal">
+      <div class="lang-banner-icon">🌍</div>
+      <div>
+        <div class="lang-banner-title">100개 이상의 언어, 전 세계 만화를 마음껏 읽으세요</div>
+        <div class="lang-banner-desc">일본어 → 한국어 / 영어 / 한국어 / 프랑스어…… 도구 하나로，전 세계 만화를 잠금 해제하세요。추천 대상「원서 읽기 + 외국어 학습」의 두 가지 니즈를 모두 충족합니다。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SECTION 4: CREATION GUIDE ===== -->
+<section class="guide-bg" id="guide">
+  <div class="inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">Creation Guide</div>
+      <h2 class="sec-title">제작 가이드</h2>
+      <p class="sec-desc">고정된 대본을 드리지 않습니다. 설명하기 좋고 촬영하기 좋은 몇 가지 방향을 제시해 드리니, 본인 채널의 성격에 맞게 자유롭게 수정하세요.</p>
+    </div>
+
+    <!-- 방향 제안 -->
+    <div class="sec-head" style="text-align:left;margin-bottom:20px">
+      <div class="sec-label">Direction</div>
+      <h3 style="font-size:20px;font-weight:900;color:var(--text-primary)">방향 제안 (1~2가지를 자유롭게 선택하여 사용하세요)</h3>
+    </div>
+    <div class="guide-tabs reveal">
+      <button class="guide-tab active" onclick="switchGuide(0,this)">🇯🇵 방향 A · 일본 만화</button>
+      <button class="guide-tab" onclick="switchGuide(1,this)">🇰🇷 방향 B · 한국 웹툰</button>
+      <button class="guide-tab" onclick="switchGuide(2,this)">💡 방향 C · 리뷰/비교</button>
+    </div>
+
+    <div class="guide-panel active" id="guide-0">
+      <div class="guide-card reveal">
+        <div class="guide-card-head">
+          <div class="guide-type-badge" style="background:rgba(219,39,119,0.08);border:1px solid rgba(219,39,119,0.22);color:var(--pink)">🇯🇵 방향 A</div>
+          <div class="guide-title">「일본어를 몰라도 연재 원서를 볼 수 있어요」</div>
+          <div class="guide-subtitle">추천 대상: 일본 만화 / Pixiv / 소년 만화 관련 채널 · 숏폼 영상 60~120초</div>
+        </div>
+        <div class="guide-body">
+          <div class="guide-section">
+            <div class="guide-section-label">콘텐츠 구성 제안</div>
+            <div class="guide-tips">
+              <div class="guide-tip"><div class="guide-tip-icon">①</div><span>본인이 즐겨 보는 일본 만화 원서를 찾습니다 (팔로워들에게도 익숙한 IP 추천)</span></div>
+              <div class="guide-tip"><div class="guide-tip-icon">②</div><span>번역을 켜지 않은 상태를 먼저 보여줍니다: 화면 가득한 일본어, 읽기 힘든 모습</span></div>
+              <div class="guide-tip"><div class="guide-tip-icon">③</div><span>Immersive Translate 만화 번역 기능을 켠 모습을 보여줍니다：같은 페이지가「원본 이미지 + 한국어번역문」말풍선 안에 들어갑니다（PC 브라우저또는 App 내장 브라우저모두 가능）</span></div>
+              <div class="guide-tip"><div class="guide-tip-icon">④</div><span>몇 페이지를 넘기며 번역이 잘 된 / 재미있는 대사를 읽어주고, 의성어 변환 효과도 함께 보여줍니다</span></div>
+            </div>
+          </div>
+          <div class="guide-section">
+            <div class="guide-section-label">참고 멘트 (자유롭게 수정 가능)</div>
+            <div class="guide-quote">「최근에 일본 연재 만화를 보고 있는데，제가 일본어 노베이스라，예전에는 번역본이 올라올 때까지 기다려야만 했어요——그런데 지금은 Immersive Translate를 써서，공식 사이트에서 직접 봅니다，AI 번역이 말풍선 위에 겹쳐지고，조차「ドカン！」같은 의성어도 번역해줘서「쾅!」，정말 몰입감이 좋아요。게다가 무료 사용자도 매월 100장의 페이지를 번역할 수 있어서，가볍게 몇 작품 챙겨보기에 충분합니다。」</div>
+          </div>
+          <div class="guide-section">
+            <div class="guide-section-label">마무리 CTA (행동 유도)</div>
+            <div class="guide-quote">「완전 무료이고，Chrome 웹 스토어에서 검색하면「Immersive Translate」바로 설치할 수 있어요，공식 홈페이지링크남기다댓글요，팔로워 전용 10% 할인 코드와 주간 이용권 이벤트도 있으니，댓글에서 만나요！」</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-panel" id="guide-2" style="display:none">
+      <div class="guide-card reveal">
+        <div class="guide-card-head">
+          <div class="guide-type-badge" style="background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.22);color:#059669">💡 방향 C</div>
+          <div class="guide-title">「번역본이 안 올라오는 원서, 이 도구로 직접 봅니다」</div>
+          <div class="guide-subtitle">추천 대상: 도구 리뷰 / 실사용 도구 공유 관련 채널 · 숏폼 영상 60–90초</div>
+        </div>
+        <div class="guide-body">
+          <div class="guide-section">
+            <div class="guide-section-label">콘텐츠 구성 제안</div>
+            <div class="guide-tips">
+              <div class="guide-tip"><div class="guide-tip-icon">①</div><span>도입부에서 직접 불편한 점 언급: "번역본이 늦게 올라오나요, 공식 한국어판이 없나요 —— 어떻게 해결하시나요?"</span></div>
+              <div class="guide-tip"><div class="guide-tip-icon">②</div><span>보여주다번역 끄기의모습：만화페이지화면 가득한 일본어/한국어，전혀 이해 불가</span></div>
+              <div class="guide-tip"><div class="guide-tip-icon">③</div><span>Immersive Translate를 켜고만화기능，비교전후：같은 페이지가「원본 이미지 + 한국어번역문말풍선 안에 들어갑니다」</span></div>
+              <div class="guide-tip"><div class="guide-tip-icon">④</div><span>강조하나의세부 사항：의성어번역 효과（「ドカン！」→「쾅!」），하게 하다팔로워느끼다까지「정말에보다만화」가 아니라보다기기넘기다</span></div>
+            </div>
+          </div>
+          <div class="guide-section">
+            <div class="guide-section-label">참고 멘트 (자유롭게 수정 가능)</div>
+            <div class="guide-quote">"제가 보는 이 만화는 번역팀이 항상 늦고 공식 한국어판도 없어요 —— 나중에 Immersive Translate를 발견하고 공식 사이트에서 직접 원서를 읽을 수 있게 되었습니다. AI 번역이 말풍선 위에 겹쳐지고 의성어까지 번역되어 마치 반공식 한국어판을 보는 느낌입니다. 무료 사용자도 매월 100장의 만화 페이지 번역을 제공받아 가볍게 연재작을 보기에 충분합니다."</div>
+          </div>
+          <div class="guide-section">
+            <div class="guide-section-label">마무리 CTA (행동 유도)</div>
+            <div class="guide-quote">「Chrome 웹 스토어검색하다「Immersive Translate」바로 설치할 수 있어요，공식 홈페이지링크남기다댓글요，팔로워 전용 10% 할인 코드와 주간 이용권 이벤트도 있으니，댓글에서 만나요！」</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-panel" id="guide-1">
+      <div class="guide-card reveal">
+        <div class="guide-card-head">
+          <div class="guide-type-badge" style="background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.22);color:var(--purple)">🇰🇷 방향 B</div>
+          <div class="guide-title">"한국 웹툰 원서, 번역 기다릴 필요 없이 WEBTOON에서 직접 보세요"</div>
+          <div class="guide-subtitle">추천 대상: 주로 한국 웹툰 / WEBTOON을 보는 크리에이터 · 숏폼 영상 60–90초</div>
+        </div>
+        <div class="guide-body">
+          <div class="guide-section">
+            <div class="guide-section-label">콘텐츠 구성 제안</div>
+            <div class="guide-tips">
+              <div class="guide-tip"><div class="guide-tip-icon">①</div><span>WEBTOON 또는 Naver 만화 열기, 한국어 원판 보여주기: 화면 가득한 한국어, 전혀 이해 불가</span></div>
+              <div class="guide-tip"><div class="guide-tip-icon">②</div><span>Immersive Translate 만화 기능 켜기, 한국어 말풍선이 번역되는 효과 보여주기 (웹툰 세로 스크롤, 번역이 매 칸에 겹쳐짐)</span></div>
+              <div class="guide-tip"><div class="guide-tip-icon">③</div><span>가볍게 몇 칸 넘기며 자연스럽게 번역된 대사 두 마디 읽기, 겸사겸사 무료 제공량으로 가볍게 몇 편 보기에 충분하다고 언급하기</span></div>
+            </div>
+          </div>
+          <div class="guide-section">
+            <div class="guide-section-label">참고 멘트 (자유롭게 수정 가능)</div>
+            <div class="guide-quote">"《나 혼자만 레벨업》, 《여신강림》 같은 한국 웹툰 원서를 항상 보고 싶었지만 한국어를 전혀 몰랐어요 —— Immersive Translate를 설치한 후 WEBTOON 공식 홈페이지에서 직접 봅니다. AI 번역이 매 칸에 겹쳐지고 웹툰을 세로로 스크롤하면 번역도 따라옵니다. 마치 공식 한국어판을 보는 느낌이에요. 무료 버전 매월 100장 제공으로 가볍게 몇 편 보기에 충분합니다."</div>
+          </div>
+          <div class="guide-section">
+            <div class="guide-section-label">마무리 CTA (행동 유도)</div>
+            <div class="guide-quote">「Chrome 웹 스토어검색하다「Immersive Translate」바로 설치할 수 있어요，공식 홈페이지링크남기다댓글요，그리고팔로워 전용 10% 할인 코드，댓글에서 만나요！」</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 평가 기준 -->
+    <div class="sec-head" style="text-align:left;margin-top:48px;margin-bottom:20px">
+      <div class="sec-label">Quality Criteria</div>
+      <h3 style="font-size:20px;font-weight:900;color:var(--text-primary)">우리가 생각하는 '잘 만들어진 콘텐츠'의 기준</h3>
+    </div>
+    <div class="quality-grid reveal">
+      <div class="quality-item">
+        <div class="quality-num">01</div>
+        <div class="quality-title">단순한 말하기 광고가 아닌, 실제 읽는 화면 포함</div>
+        <div class="quality-desc">최소 1~2개의 만화 스크롤 장면 + 번역 켜기/끄기 전후 비교 장면을 넣어, 팔로워가 직관적으로 느낄 수 있게 해주세요: 번역 끄기 = 전혀 이해 불가; 번역 켜기 = 스토리 파악 가능.</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-num">02</div>
+        <div class="quality-title">팔로워가 한눈에 이해할 수 있게: 이 도구는 '원서를 못 읽는 사람'을 위한 것입니다</div>
+        <div class="quality-desc">제품의 이미지는 '일반적인 번역 앱 광고'가 아니라, '원서 읽기 / 원작 보기 / 공식 업데이트 챙겨보기를 도와주는 도구'여야 합니다.</div>
+      </div>
+      <div class="quality-item">
+        <div class="quality-num">03</div>
+        <div class="quality-title">가격 정보는 간단하고 명확하게, 너무 자세히 설명할 필요 없음</div>
+        <div class="quality-desc">한 문장이면 충분합니다: 「만화 번역 기능은 무료 버전에서도 매월 100장의 페이지를 제공하여 가볍게 연재작을 보기에 충분합니다. 헤비 유저라면 Pro 버전을 고려해보세요.」</div>
+      </div>
+    </div>
+
+    <!-- 필수 포함 사항 & 할 수 있다자유롭게표현하다 -->
+    <div class="sec-head" style="text-align:left;margin-top:48px;margin-bottom:20px">
+      <div class="sec-label">Must & Free</div>
+      <h3 style="font-size:20px;font-weight:900;color:var(--text-primary)">필수 포함 사항 & 자유롭게 표현 가능한 부분</h3>
+    </div>
+    <div class="must-free-grid reveal">
+      <div class="must-card">
+        <div class="must-card-title must">✅ 반드시 포함해 주셨으면 하는 내용</div>
+        <div class="must-list">
+          <div class="must-item"><div class="must-dot"></div><span><strong>제품명：</strong>「Immersive Translate」또는「Immersive Translate」，두 이름 모두 가능합니다，하지만 명확하게 언급해주세요</span></div>
+          <div class="must-item"><div class="must-dot"></div><span><strong>핵심 시나리오:</strong> "PC 브라우저와 Immersive Translate App 내장 브라우저에서 지원되는 만화 사이트를 열고, 클릭 한 번으로 원서 만화를 한국어로 번역, 번역문이 화면 위에 직접 겹쳐짐"</span></div>
+          <div class="must-item"><div class="must-dot"></div><span><strong>무료 정책：</strong>「만화 번역 기능은，무료 버전에서 매월 100장의 만화 페이지 번역을 제공하며，헤비 유저는 Pro 버전을 고려할 수 있음」</span></div>
+          <div class="must-item"><div class="must-dot"></div><span><strong>댓글 고정：</strong>공식 홈페이지링크 + 팔로워 전용 10% 할인 코드 + 주간 이용권 이벤트 정보</span></div>
+        </div>
+      </div>
+      <div class="must-card">
+        <div class="must-card-title free">✦ 완전히 자유롭게 표현할 수 있는 부분</div>
+        <div class="must-list">
+          <div class="must-item"><div class="free-dot"></div><span>번역이 완벽하지 않은 부분은，솔직하게 말하거나 / 가볍게 지적해도 좋습니다</span></div>
+          <div class="must-item"><div class="free-dot"></div><span>자신의 말로 사용감 설명하기: "번역팀이 늦을 때, 저는 먼저 이걸 사용해서 직접 봅니다."</span></div>
+          <div class="must-item"><div class="free-dot"></div><span>어떤 만화 작품, 어느 플랫폼을 보여줄지 선택 —— 본인이 즐겨보고 팔로워에게 익숙한 IP를 선택하는 것이 효과가 가장 좋습니다</span></div>
+          <div class="must-item"><div class="free-dot"></div><span>Immersive Translate의 웹페이지 / PDF / 영상 자막 기능을 함께 언급할지 여부는 본인의 강조점에 따라 결정하세요</span></div>
+          <div class="must-item"><div class="free-dot"></div><span>영상 스타일, 편집 방식, BGM은 완전히 자유로우며, 우리는 창작 스타일에 간섭하지 않습니다</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="notice-box reveal">
+      <span>🚫</span>
+      <span><strong>피해주세요:</strong> Immersive Translate를 Vlog 안의 단순 광고 PPL로 만들지 마세요 —— 웹툰/만화 팔로워들은 도구 관련 내용에 대한 수용도가 매우 높으므로, 완전한 기능을 보여주는 것이 "지나가듯 언급하는 것"보다 효과가 훨씬 좋습니다.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== COLLAB FLOW ===== -->
+<section class="collab-bg" id="collab">
+  <div class="inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">Collaboration Flow</div>
+      <h2 class="sec-title">협업 프로세스</h2>
+      <p class="sec-desc">컨택부터 게시까지 5단계, 명확하고 투명하며 숨겨진 프로세스가 없습니다.</p>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step reveal">
+        <div class="flow-step-left">
+          <div class="flow-step-num">01</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-right">
+          <div class="flow-step-tag fst-1">컨택 확인</div>
+          <div class="flow-step-title">해당 플랫폼 담당자 이메일 추가, 채널 정보 설명</div>
+          <div class="flow-step-desc">주로 창작하는 플랫폼에 따라 해당 담당자의 이메일을 직접 추가하여 플랫폼, 팔로워 규모를 설명하고 채널 링크를 보내주세요. 1영업일 이내에 답변해 드립니다.</div>
+          <div class="flow-step-items">
+            <span class="flow-item">📱 채널 링크 발송</span>
+            <span class="flow-item">👥 팔로워 규모 설명</span>
+            <span class="flow-item">📋 콘텐츠 방향 설명</span>
+          </div>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-step-left">
+          <div class="flow-step-num">02</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-right">
+          <div class="flow-step-tag fst-2">자료 발송남기다</div>
+          <div class="flow-step-title">협업 자료 페이지 + 전용 할인 코드 발송</div>
+          <div class="flow-step-desc">협업 확인 후, 협업 참고 페이지 링크, 팔로워 전용 10% 할인 코드, 공식 Logo 자료 및 Pro 무료 체험 계정(녹화용)을 보내드립니다.</div>
+          <div class="flow-step-items">
+            <span class="flow-item">🔗 협업 참고 페이지</span>
+            <span class="flow-item">🏷️ 팔로워전용할인 코드</span>
+            <span class="flow-item">🎁 Pro 무료체험하다채널</span>
+          </div>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-step-left">
+          <div class="flow-step-num">03</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-right">
+          <div class="flow-step-tag fst-3">창작 및 검토</div>
+          <div class="flow-step-title">자유롭게 창작, 두 단계만 가볍게 확인</div>
+          <div class="flow-step-desc">본인의 스타일과 언어로 창작하는 것을 권장하며, 대본을 그대로 읽을 필요가 없습니다. 두 가지 가벼운 확인 단계가 있습니다: <strong style="color:var(--pink)">①대본 확인</strong> —— 촬영 전 중요한 정보가 벗어나지 않았는지 확인; <strong style="color:var(--pink)">②영상 확인</strong> —— 게시 전 빠르게 훑어보며 주로 시청자 오해를 방지하기 위함이며, 내용 스타일에 간섭하지 않습니다.</div>
+          <div class="flow-step-items">
+            <span class="flow-item">🎨 자유롭게 창작, 스타일 자율</span>
+            <span class="flow-item">📝 대본 확인 (촬영 전)</span>
+            <span class="flow-item">🎬 영상 확인 (게시 전)</span>
+          </div>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-step-left">
+          <div class="flow-step-num">04</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-right">
+          <div class="flow-step-tag fst-1">제휴 프로그램</div>
+          <div class="flow-step-title">제휴 프로그램 참여, 매 전환마다 수수료 지급</div>
+          <div class="flow-step-desc">협업 비용 외에도 Immersive Translate 제휴 프로그램에 동시 참여하는 것을 강력히 권장합니다. 팔로워가 전용 링크를 통해 Pro를 구매하면 지속적인 수수료 수입을 얻을 수 있으며, 이는 많은 KOL의 장기적인 수동 수입원입니다.</div>
+          <div class="flow-step-items">
+            <span class="flow-item">💰 매 전환마다 수수료</span>
+            <span class="flow-item">🔗 전용 홍보 링크</span>
+            <a href="https://immersivetranslate.com/ko/affiliate/" target="_blank" class="flow-item" style="color:var(--pink);border-color:rgba(219,39,119,0.25)">📋 제휴 프로그램 상세 보기 ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-step-left">
+          <div class="flow-step-num">05</div>
+          <div class="flow-step-line"></div>
+        </div>
+        <div class="flow-step-right">
+          <div class="flow-step-tag fst-3">게시 &amp; 정산</div>
+          <div class="flow-step-title">영상 업로드, 댓글에 링크 및 할인 코드 고정, 보수 정산</div>
+          <div class="flow-step-desc">영상 업로드 후, 댓글에 공식 홈페이지 링크와 팔로워 전용 할인 코드를 고정해주시고, 영상 마무리에서 주간 이용권 이벤트를 언급해주세요. 게시 확인 후, 사전에 약속한 방식으로 정산을 완료합니다.</div>
+          <div class="benefit-cards">
+            <div class="benefit-card benefit-card-pink">
+              <div style="font-size:11px;font-weight:800;color:var(--pink);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px">🎁 팔로워혜택 · 무료주간 이용권이벤트</div>
+              <div style="font-size:13px;color:var(--text-primary);font-weight:600;margin-bottom:4px">무료주간 이용권 × 최소 5 장</div>
+              <div style="font-size:12px;color:var(--text-secondary);line-height:1.6">최소 5장의 무료 주간 이용권을 제공하여 댓글이나 영상 마무리에서 이벤트 상호작용을 진행하고 시청자 참여도 및 전환을 높일 수 있습니다.</div>
+            </div>
+            <div class="benefit-card benefit-card-purple">
+              <div style="font-size:11px;font-weight:800;color:var(--purple);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px">🏷️ 팔로워 전용 할인 코드</div>
+              <div style="font-size:13px;color:var(--text-primary);font-weight:600;margin-bottom:4px">Pro 전용 9 할인할인 코드</div>
+              <div style="font-size:12px;color:var(--text-secondary);line-height:1.6">팔로워가 전용 할인 코드를 통해 Pro를 구매하면 10% 할인을 받을 수 있습니다. 이 코드는 반드시 댓글에 고정하거나 영상 마무리에서 언급해야 하며, 전환 효과에 직접적인 영향을 미칩니다.</div>
+            </div>
+          </div>
+          <div class="flow-step-items" style="margin-top:16px">
+            <span class="flow-item">🔗 댓글에 링크 및 할인 코드 고정</span>
+            <span class="flow-item" style="background:rgba(219,39,119,0.06);border-color:rgba(219,39,119,0.18);color:var(--pink)">🎁 이벤트 주간 이용권 준비 완료</span>
+            <span class="flow-item">💰 보수 정산</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== VIDEO TUTORIAL ===== -->
+<section id="video-tutorial" style="background:#fff8fb">
+  <div class="inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">Tutorial Video</div>
+      <h2 class="sec-title">한 번 보면 바로 사용 가능: 30초 만화 번역 튜토리얼</h2>
+      <p class="sec-desc">오른쪽의 "M" 버튼을 누르기만 하면 만화 말풍선 안의 외국어가 한국어로 바뀝니다. 아래 영상에서 전체 조작 프로세스를 보여줍니다.</p>
+    </div>
+      <div class="reveal" style="max-width:800px;margin:0 auto">
+      <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:16px;box-shadow:0 8px 32px rgba(219,39,119,0.15)">
+        <iframe
+          src="//player.bilibili.com/player.html?bvid=BV1U6421Z7ji&page=1&high_quality=1&danmaku=0&autoplay=0"
+          title="Immersive Translate만화 번역 기능은튜토리얼"
+          style="position:absolute;top:0;left:0;width:100%;height:100%;border:none"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          scrolling="no"
+          frameborder="0">
+        </iframe>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;justify-content:center">
+        <div style="background:#fff0f6;border:1px solid rgba(219,39,119,0.18);border-radius:10px;padding:10px 16px;font-size:13px;color:var(--text-secondary)">
+          <strong style="color:var(--pink)">📱 모바일</strong>: Immersive Translate App 내장 브라우저에서 만화 사이트 열기, 우측 하단 "M" 버튼 클릭
+        </div>
+        <div style="background:#f5f0ff;border:1px solid rgba(124,58,237,0.18);border-radius:10px;padding:10px 16px;font-size:13px;color:var(--text-secondary)">
+          <strong style="color:var(--purple)">💻 PC</strong>: 브라우저 플러그인 설치 후, 만화 페이지 우측 하단에 "만화 번역" 버튼 나타남
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+  <div class="inner">
+    <div class="sec-head reveal">
+      <div class="sec-label">Contact</div>
+      <h2 class="sec-title">문의하기</h2>
+      <p class="sec-desc">해당 담당자 이메일을 추가하여 플랫폼, 팔로워 규모를 설명하고 채널 링크를 첨부해주세요. 1영업일 이내에 답변해 드립니다.</p>
+    </div>
+    <div class="contact-grid reveal" style="grid-template-columns: repeat(2, 1fr);">
+      <!-- 恩青 TikTok/YouTube -->
+      <div class="wx-card">
+        <div class="wx-platform" style="background:#000000;overflow:hidden;display:flex;align-items:center;justify-content:center"><span style="color:white;font-size:20px">🎵</span></div>
+        <div class="wx-info">
+          <div class="wx-name">은청(恩青) · TikTok / YouTube 담당자</div>
+          <div class="wx-id" style="font-size:12px">이메일：songenqing@funstory.ai</div>
+        </div>
+        <button class="wx-copy" onclick="copyWx(this,'songenqing@funstory.ai')">이메일 복사</button>
+      </div>
+      <!-- Yara Instagram/기타 -->
+      <div class="wx-card">
+        <div class="wx-platform" style="background:linear-gradient(135deg,#e6162d,#c0001a);overflow:hidden;display:flex;align-items:center;justify-content:center"><span style="color:white;font-size:13px;font-weight:800">기타</span></div>
+        <div class="wx-info">
+          <div class="wx-name">Yara · Instagram / 기타 플랫폼 담당자</div>
+          <div class="wx-id" style="font-size:12px">이메일：yara@babelnovel.com</div>
+        </div>
+        <button class="wx-copy" onclick="copyWx(this,'yara@babelnovel.com')">이메일 복사</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="inner">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px">
+      <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663402005199/AdlZOKmKnlgVUZuk.jpg" style="width:24px;height:24px;border-radius:6px;object-fit:cover" alt="" />
+      <span style="font-size:15px;font-weight:800;color:var(--text-primary)">Immersive Translate</span>
+    </div>
+    <div class="footer-desc">글로벌 2000만+ 사용자가 신뢰하는 AI Translate도구 · 웹툰/만화 KOL 협업 자료</div>
+    <div style="margin-top:16px;display:flex;justify-content:center;gap:20px;flex-wrap:wrap">
+      <a href="https://immersivetranslate.com/ko/" target="_blank" style="font-size:12px;color:var(--text-muted)">공식 홈페이지</a>
+      <a href="https://immersivetranslate.com/ko/affiliate/" target="_blank" style="font-size:12px;color:var(--text-muted)">제휴 프로그램</a>
+      <a href="#messages" style="font-size:12px;color:var(--text-muted)">핵심 포인트 2가지</a>
+      <a href="#guide" style="font-size:12px;color:var(--text-muted)">제작 가이드</a>
+    </div>
+  </div>
+</footer>
+
+<!-- COLLAB MODAL -->
+<div class="modal-overlay" id="collabModal" onclick="closeModal('collabModal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('collabModal')">×</button>
+    <div class="modal-title">🤝 협업 문의</div>
+    <div class="modal-sub">해당 담당자 이메일을 추가하여 플랫폼, 팔로워 규모를 설명하고 채널 링크를 첨부해주세요. 1영업일 이내에 답변해 드립니다.</div>
+    <div style="display:grid;grid-template-columns:1fr;gap:12px">
+    <div class="wx-card">
+      <div class="wx-platform" style="background:#000000;overflow:hidden;display:flex;align-items:center;justify-content:center"><span style="color:white;font-size:16px">🎵</span></div>
+      <div class="wx-info"><div class="wx-name">은청(恩青) · TikTok / YouTube 담당자</div><div class="wx-id" style="font-size:12px">이메일：songenqing@funstory.ai</div></div>
+      <button class="wx-copy" onclick="copyWx(this,'songenqing@funstory.ai')">이메일 복사</button>
+    </div>
+    <div class="wx-card">
+      <div class="wx-platform" style="background:linear-gradient(135deg,#e6162d,#c0001a);overflow:hidden;display:flex;align-items:center;justify-content:center"><span style="color:white;font-size:13px;font-weight:800">기타</span></div>
+      <div class="wx-info"><div class="wx-name">Yara · Instagram / 기타 플랫폼 담당자</div><div class="wx-id" style="font-size:12px">이메일：yara@babelnovel.com</div></div>
+      <button class="wx-copy" onclick="copyWx(this,'yara@babelnovel.com')">이메일 복사</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- SHARE MODAL -->
+<div class="modal-overlay" id="shareModal" onclick="closeModal('shareModal')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('shareModal')">×</button>
+    <div class="modal-title">📤 웹툰/만화 크리에이터 친구에게 공유하기</div>
+    <div class="modal-sub">다른 웹툰/만화 KOL을 알고 계신다면, 이 협업 자료를 그들에게 공유해주세요.</div>
+    <div class="share-grid">
+      <div class="share-item" onclick="shareToWeChat()"><div class="share-plat-icon">💬</div><div class="share-plat-label">이메일</div></div>
+      <div class="share-item" onclick="shareToWeibo()"><div class="share-plat-icon">🔴</div><div class="share-plat-label">기타 플랫폼</div></div>
+      <div class="share-item" onclick="copyLink()"><div class="share-plat-icon">🔗</div><div class="share-plat-label">링크 복사</div></div>
+      <div class="share-item" onclick="shareToBilibili()"><div class="share-plat-icon">📺</div><div class="share-plat-label">YouTube</div></div>
+      <div class="share-item" onclick="shareToDouyin()"><div class="share-plat-icon">🎵</div><div class="share-plat-label">TikTok</div></div>
+      <div class="share-item" onclick="shareToXHS()"><div class="share-plat-icon">🍠</div><div class="share-plat-label">Instagram</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox-overlay" onclick="closeLightbox()">
+  <span class="lb-close" onclick="closeLightbox()">×</span>
+  <span class="lb-prev" onclick="event.stopPropagation();lbNav(-1)">‹</span>
+  <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
+  <span class="lb-next" onclick="event.stopPropagation();lbNav(1)">›</span>
+  <div id="lb-counter"></div>
+</div>
+
+<script>
+  // Slider
+  const sliderWrap = document.getElementById('slider-wrap');
+  const sliderAfter = document.getElementById('slider-after');
+  const sliderLINE = document.getElementById('slider-line');
+  const sliderHandle = document.getElementById('slider-handle');
+  let isDragging = false;
+  function setSlider(pct) {
+    pct = Math.max(5, Math.min(95, pct));
+    sliderAfter.style.clipPath = `inset(0 ${100-pct}% 0 0)`;
+    sliderLINE.style.left = pct + '%';
+    sliderHandle.style.left = pct + '%';
+  }
+  setSlider(50);
+  sliderWrap.addEventListener('mousedown', e => { isDragging = true; e.preventDefault(); });
+  sliderWrap.addEventListener('touchstart', e => { isDragging = true; }, { passive: true });
+  document.addEventListener('mousemove', e => {
+    if (!isDragging) return;
+    const rect = sliderWrap.getBoundingClientRect();
+    setSlider((e.clientX - rect.left) / rect.width * 100);
+  });
+  document.addEventListener('touchmove', e => {
+    if (!isDragging) return;
+    const rect = sliderWrap.getBoundingClientRect();
+    setSlider((e.touches[0].clientX - rect.left) / rect.width * 100);
+  }, { passive: true });
+  document.addEventListener('mouseup', () => isDragging = false);
+  document.addEventListener('touchend', () => isDragging = false);
+
+  // Platform expand
+  function togglePlatformAll(btn) {
+    const el = document.getElementById('platform-all');
+    el.classList.toggle('open');
+    btn.textContent = el.classList.contains('open')
+      ? '접기 ↑'
+      : '80+ 개에라인만화사이트，지속 추가 중 · 지원 플랫폼 전체 보기 ↓';
+  }
+
+  // Guide tabs
+  function switchGuide(idx, btn) {
+    // tab 0 = guide-0 (일본 만화), tab 1 = guide-1 (한국 웹툰), tab 2 = guide-2 (리뷰비교)
+    const panelIds = ['guide-0','guide-1','guide-2'];
+    panelIds.forEach((id,i) => {
+      const p = document.getElementById(id);
+      if(!p) return;
+      if(i === idx) {
+        p.classList.add('active');
+        p.style.display = '';
+      } else {
+        p.classList.remove('active');
+        p.style.display = 'none';
+      }
+    });
+    document.querySelectorAll('.guide-tab').forEach((t,i) => t.classList.toggle('active', i===idx));
+  }
+
+  // Modal
+  function openModal(id) { document.getElementById(id).classList.add('open'); }
+  function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+  // Copy email
+  function copyWx(btn, id) {
+    const orig = btn.textContent;
+    navigator.clipboard.writeText(id).then(() => {
+      btn.textContent = '복사됨 ✓';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 2000);
+    });
+  }
+
+  // Share
+  function copyLink() {
+    navigator.clipboard.writeText(window.location.href).then(() => alert('링크가 복사되었습니다!'));
+  }
+  function shareToWeChat() { alert('부탁드립니다캡처또는링크 복사，에이메일중공유。'); }
+  function shareToWeibo() { window.open('https://service.weibo.com/share/share.php?url='+encodeURIComponent(window.location.href)+'&title=Immersive Translate웹툰/만화 KOL 협업 자료', '_blank'); }
+  function copyLink() { navigator.clipboard.writeText(window.location.href).then(() => alert('링크가 복사되었습니다!')); }
+  function shareToBilibili() { alert('부탁드립니다링크 복사，에YouTubeDM중공유。'); }
+  function shareToDouyin() { alert('부탁드립니다링크 복사，에TikTokDM중공유。'); }
+  function shareToXHS() { alert('부탁드립니다링크 복사，에InstagramDM중공유。'); }
+
+  // Lightbox
+  let lbGroup = [], lbIdx = 0;
+  function openLightboxGrouped(src, group, idx) {
+    const imgs = document.querySelectorAll(`[data-group="${group}"]`);
+    lbGroup = Array.from(imgs).map(i => i.src || i.getAttribute('src'));
+    lbIdx = idx;
+    showLb();
+  }
+  function showLb() {
+    document.getElementById('lightbox-img').src = lbGroup[lbIdx];
+    document.getElementById('lb-counter').textContent = lbGroup.length > 1 ? `${lbIdx+1} / ${lbGroup.length}` : '';
+    document.getElementById('lightbox-overlay').classList.add('open');
+  }
+  function closeLightbox() { document.getElementById('lightbox-overlay').classList.remove('open'); }
+  function lbNav(dir) { lbIdx = (lbIdx + dir + lbGroup.length) % lbGroup.length; showLb(); }
+  document.addEventListener('keydown', e => {
+    if (!document.getElementById('lightbox-overlay').classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+  });
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
